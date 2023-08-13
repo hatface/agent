@@ -1,0 +1,58 @@
+<!--具体含义参见官网 https://maven.apache.org/plugins/maven-assembly-plugin/assembly.html-->
+<assembly>
+
+    <id>release</id>
+    <!--maven打包类型，当前为zip和tar.gz-->
+    <formats>
+        <format>tar.gz</format>
+        <format>zip</format>
+    </formats>
+
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <fileSets>
+        <fileSet>
+            <!--需要打包的文件所在路径-->
+            <directory>${project.basedir}/target</directory>
+            <!--需要打包的文件-->
+            <includes>
+                <include>agent.jar</include>
+            </includes>
+            <!--打到压缩包的路径-->
+            <outputDirectory>.</outputDirectory>
+            <fileMode>0750</fileMode>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/target/lib</directory>
+            <outputDirectory>lib</outputDirectory>
+            <includes>
+                <include>*</include>
+            </includes>
+            <fileMode>0750</fileMode>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/target/resources</directory>
+            <outputDirectory>resources</outputDirectory>
+            <includes>
+                <include>*</include>
+            </includes>
+            <excludes>
+                <exclude>package.xml</exclude>
+                <exclude>agent.sh</exclude>
+            </excludes>
+            <fileMode>0750</fileMode>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/target/resources</directory>
+            <outputDirectory>.</outputDirectory>
+            <includes>
+                <include>agent.sh</include>
+            </includes>
+            <fileMode>0750</fileMode>
+        </fileSet>
+    </fileSets>
+
+</assembly>
+
+
+
